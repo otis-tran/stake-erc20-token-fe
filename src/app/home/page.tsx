@@ -1,3 +1,9 @@
+import StakeInfo from "@/components/StakeInfo";
+
 export default function Page() {
-    return <p>Dashboard Page</p>;
+    return (
+        <div className="w-full flex items-center justify-between px-80">
+            <StakeInfo />
+        </div>
+    );
 }
