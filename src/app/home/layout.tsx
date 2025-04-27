@@ -18,6 +18,15 @@ import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
 
 export function WalletOptions() {
     const { connectors, connect } = useConnect()
+    const [isMounted, setIsMounted] = React.useState(false)
+
+    React.useEffect(() => {
+      setIsMounted(true)
+    }, [])
+
+    if (!isMounted) {
+        return null 
+      }
 
     return connectors.map((connector) => (
         <button key={connector.uid} onClick={() => connect({ connector })}>
