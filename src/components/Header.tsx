@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import ConnectButton from './ConnectButton';
+import { ConnectWallet } from './ConnectWallet';
 
 interface HeaderProps {
     isConnected?: boolean;
@@ -15,20 +15,7 @@ const Header = ({ isConnected = false, walletAddress = '' }: HeaderProps) => {
                 StakeApp
             </Link>
 
-            {!isConnected ? (
-                <ConnectButton onClick={() => console.log('Connect clicked')}>
-                    Connect Wallet
-                </ConnectButton>
-            ) : (
-                <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-sm font-bold text-white">
-                        {walletAddress.slice(0, 1).toUpperCase()}
-                    </div>
-                    <span className="text-sm font-mono text-gray-300">
-                        {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
-                    </span>
-                </div>
-            )}
+            <ConnectWallet />
         </header>
     );
 };

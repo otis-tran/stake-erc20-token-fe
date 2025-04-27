@@ -1,7 +1,6 @@
 import { WagmiProviders } from '@/components/WagmiProviders'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { ConnectWallet } from '@/components/ConnectWallet'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +8,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="flex h-screen flex-col bg-black text-white">
             <Header />
             <main className="flex-grow overflow-y-auto p-6">{children}</main>
-            <ConnectWallet />
             <Footer />
           </div>
         </WagmiProviders>
