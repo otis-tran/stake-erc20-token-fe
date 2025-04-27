@@ -39,12 +39,15 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
   if (isConnected) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-white">
           {address?.slice(0, 6)}...{address?.slice(-4)}
         </span>
         <button 
           onClick={() => disconnect()}
-          className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+          className="px-6 py-2 bg-red-500 text-white font-medium rounded-lg
+                   hover:bg-red-600 transition-colors duration-200 
+                   shadow-sm border border-red-600
+                   disabled:bg-red-300 disabled:cursor-not-allowed"
         >
           Disconnect
         </button>
@@ -56,7 +59,10 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
     <button 
       onClick={handleConnect} 
       disabled={isPending || isConnecting}
-      className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors disabled:opacity-50 ${className}`}
+      className={`px-6 py-2 bg-white text-black font-medium rounded-lg
+                 hover:bg-gray-200 transition-colors duration-200 
+                 shadow-sm border border-gray-200
+                 disabled:bg-gray-300 disabled:cursor-not-allowed ${className}`}
     >
       {isPending || isConnecting ? 'Connecting...' : 'Connect Wallet'}
       {error && <span className="text-red-500 text-sm">{error.message}</span>}
