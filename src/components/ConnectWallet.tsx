@@ -1,8 +1,10 @@
 'use client'
 
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount, useConnect, useDisconnect, useBalance, useSwitchChain } from 'wagmi'
 import { metaMask } from 'wagmi/connectors'
 import { useState, useEffect } from 'react'
+import { formatUnits } from 'viem'
+import { saigon } from 'wagmi/chains'
 
 interface ConnectWalletProps {
   className?: string;
@@ -12,6 +14,9 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
   const { address, isConnected } = useAccount()
   const { connect, isPending, error } = useConnect()
   const { disconnect } = useDisconnect()
+  const { data: balance } = useBalance({ address, chainId: saigon.id })
+  const { switchChain } = useSwitchChain()
+  const { chain } = useAccount()
   const [isConnecting, setIsConnecting] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -36,13 +41,23 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
     return null
   }
 
+  const handleSwitchNetwork = async () => {
+    try {
+      await switchChain({ chainId: saigon.id })
+      console.log('Network Switched to Saigon')
+    } catch (error) {
+      console.error('Failed to switch network:', error)
+    }
+  }
+
   if (isConnected) {
+    const isWrongNetwork = chain?.id !== saigon.id
     return (
       <div className={`flex items-center gap-2 ${className}`}>
         <span className="text-sm text-white">
           {address?.slice(0, 6)}...{address?.slice(-4)}
         </span>
-        <button 
+        <button
           onClick={() => disconnect()}
           className="px-6 py-2 bg-red-500 text-white font-medium rounded-lg
                    hover:bg-red-600 transition-colors duration-200 
@@ -51,13 +66,24 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
         >
           Disconnect
         </button>
+        {isWrongNetwork ? (
+          <button
+            onClick={handleSwitchNetwork}
+          >
+            Switch to Saigon Network
+          </button>
+        ) : (
+          <div className="text-xs text-gray-400">
+            {formatUnits(balance!.value, balance!.decimals)} {balance?.symbol}
+          </div>
+        )}
       </div>
     )
   }
 
   return (
-    <button 
-      onClick={handleConnect} 
+    <button
+      onClick={handleConnect}
       disabled={isPending || isConnecting}
       className={`px-6 py-2 bg-white text-black font-medium rounded-lg
                  hover:bg-gray-200 transition-colors duration-200 
