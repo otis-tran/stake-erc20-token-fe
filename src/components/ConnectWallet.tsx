@@ -14,7 +14,7 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
   const { address, isConnected } = useAccount()
   const { connect, isPending, error } = useConnect()
   const { disconnect } = useDisconnect()
-  const { data: balance } = useBalance({ address, chainId: saigon.id })
+  const { data: balance, isLoading: isBalanceLoading } = useBalance({ address, chainId: saigon.id })
   const { switchChain } = useSwitchChain()
   const { chain } = useAccount()
   const [isConnecting, setIsConnecting] = useState(false)
@@ -66,17 +66,6 @@ export function ConnectWallet({ className = '' }: ConnectWalletProps) {
         >
           Disconnect
         </button>
-        {isWrongNetwork ? (
-          <button
-            onClick={handleSwitchNetwork}
-          >
-            Switch to Saigon Network
-          </button>
-        ) : (
-          <div className="text-xs text-gray-400">
-            {formatUnits(balance!.value, balance!.decimals)} {balance?.symbol}
-          </div>
-        )}
       </div>
     )
   }
