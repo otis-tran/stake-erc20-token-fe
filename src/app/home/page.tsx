@@ -3,9 +3,7 @@
 import { useAccount, useSwitchChain } from 'wagmi'
 import { saigon } from 'wagmi/chains'
 import { useEffect, useState } from 'react'
-import { WalletInfo } from '@/components/WalletInfo'
-import StakeInfo from '@/components/StakeInfo'
-import EarningsAndRewards from '@/components/EarningsAndRewards'
+import WalletInfo from '@/components/WalletInfo'
 
 export default function Page() {
     const [mounted, setMounted] = useState(false)
@@ -67,17 +65,7 @@ export default function Page() {
                 grossStaked="8,254,767.27"
                 totalGPUs="6,213"
             /> */}
-            <EarningsAndRewards 
-  seasons={[
-    { cpuPoints: 0, gpuPoints: 0 },
-    { cpuPoints: 0, gpuPoints: 0 },
-    { cpuPoints: 0, gpuPoints: 0 }
-  ]}
-  blockRewards={0.00}
-  jobEarnings={0.00}
-  computeHours={0.00}
-  computeJobs={0}
-/>
+            <WalletInfo />
         </div>
     )
 }
