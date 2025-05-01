@@ -4,6 +4,7 @@ import { useAccount, useSwitchChain } from 'wagmi'
 import { saigon } from 'wagmi/chains'
 import { useEffect, useState } from 'react'
 import WalletInfo from '@/components/WalletInfo'
+import StakingInfo from '@/components/StakingInfo'
 
 export default function Page() {
     const [mounted, setMounted] = useState(false)
@@ -57,15 +58,9 @@ export default function Page() {
     }
 
     return (
-        <div className="w-full flex flex-col items-center justify-between px-80">
-            {/* <WalletInfo /> */}
-            {/* <StakeInfo
-                netStakedIO="5,086,794.34"
-                netStakedUSD="4,153,911.56"
-                grossStaked="8,254,767.27"
-                totalGPUs="6,213"
-            /> */}
+        <div className="w-full flex flex-col items-center justify-between px-80 py-8 space-y-6">
             <WalletInfo />
+            <StakingInfo />
         </div>
     )
 }
